@@ -34,7 +34,6 @@ function App() {
       },
     });
     const data = await resp.json();
-    console.log(data);
     const munged = data.map((film) => [
       film.title,
       film.title.trim().toLowerCase().split(' ').join('-'),
