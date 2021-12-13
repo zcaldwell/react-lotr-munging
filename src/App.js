@@ -27,18 +27,19 @@ function App() {
 
     // 3. Set the resulting transformation as state using setFilms
     // 4. You'll know it works if the films show up on the page
-    const resp = await fetch('https://the-one-api.dev/v2/movie/', {
+    const resp = await fetch(`${process.env.REACT_APP_SUPABASE_URL}/rest/v1/films`, {
       headers: {
-        Authorization: `Bearer KDa_JXiFTIdn9qS0E7wU`,
+        apikey: process.env.REACT_APP_SUPABASE_KEY,
+        Authorization: `Bearer ${process.env.REACT_APP_SUPABASE_KEY}`,
       },
     });
     const data = await resp.json();
     console.log(data);
-    const munged = data.docs.map((film) => [
-      film.name,
-      film.name.trim().toLowerCase().split(' ').join('-'),
-      film.boxOfficeRevenueInMillions,
-      film.academyAwareNominations,
+    const munged = data.map((film) => [
+      film.title,
+      film.title.trim().toLowerCase().split(' ').join('-'),
+      film.box_office_total,
+      film.academy_award_nominations,
     ]);
     setFilms(munged);
   };
@@ -56,13 +57,14 @@ function App() {
     //    ]
     // 3. Set the resulting transformation as state using setCharacters
     // 4. You'll know it works if the characters show up on the page
-    const resp = await fetch('https://the-one-api.dev/v2/character/', {
+    const resp = await fetch(`${process.env.REACT_APP_SUPABASE_URL}/rest/v1/characters`, {
       headers: {
-        Authorization: `Bearer KDa_JXiFTIdn9qS0E7wU`,
+        apikey: process.env.REACT_APP_SUPABASE_KEY,
+        Authorization: `Bearer ${process.env.REACT_APP_SUPABASE_KEY}`,
       },
     });
     const data = await resp.json();
-    const munged = data.docs.map((item) => ({
+    const munged = data.map((item) => ({
       ...item,
       dates: item.birth && item.death ? `${item.brirth} - ${item.death}` : `Unknown`,
     }));
