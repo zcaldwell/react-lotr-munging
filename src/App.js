@@ -65,7 +65,7 @@ function App() {
     const data = await resp.json();
     const munged = data.map((item) => ({
       ...item,
-      dates: item.birth && item.death ? `${item.brirth} - ${item.death}` : `Unknown`,
+      dates: item.birth && item.death ? `${item.birth} - ${item.death}` : `Unknown`,
     }));
     setCharacters(munged);
   };
